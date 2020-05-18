@@ -13,7 +13,6 @@ var axios = require("axios");
 var argOne = process.argv[3];
 var argTwo = process.argv[4];
 
-
 var pick = function (input, argOne, argTwo) {
     switch (input) {
         case "music":
@@ -30,7 +29,7 @@ var pick = function (input, argOne, argTwo) {
                         if (err) {
                             return console.log('Error occurred: ' + err);
                         }
-                        console.log(data.tracks.items[0].name);
+                        console.log(data);
                     }
 
                 )
