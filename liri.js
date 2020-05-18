@@ -6,13 +6,14 @@ var input = process.argv[2];
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 
-//bandsintown
+//bandsintown & OMDB
 var axios = require("axios");
 
+//information
 var argOne = process.argv[3];
 var argTwo = process.argv[4];
 
-//
+
 var pick = function (input, argOne, argTwo) {
     switch (input) {
         case "music":
@@ -42,10 +43,10 @@ var pick = function (input, argOne, argTwo) {
         case "band":
             console.log("this is band section");
 
-            var getBand = function() {
+            var getBand = function () {
                 var queryURL = "https://rest.bandsintown.com/artists/" + argOne + "/events?app_id=codingbootcamp";
 
-                axios.get(queryURL).then(function(response) {
+                axios.get(queryURL).then(function (response) {
                     console.log(response.data[0].venue);
                 })
             };
@@ -55,6 +56,12 @@ var pick = function (input, argOne, argTwo) {
 
         case "movie":
             console.log("this is movie section");
+            var getMovie = function () {
+                var queryURL = "http://www.omdbapi.com/?i=tt3896198&apikey=" + keys.OMDBKey.APIKey + "&t=" + argOne;
+                axios.get(queryURL).then(function (response) {
+                    console.log(response.data);
+                })
+            };
             getMovie();
             break;
     }
