@@ -9,6 +9,8 @@ var spotify = new Spotify(keys.spotify);
 //bandsintown
 var axios = require("axios");
 
+var argOne = process.argv[3];
+var argTwo = process.argv[4];
 
 //
 var pick = function (input, argOne, argTwo) {
@@ -16,8 +18,7 @@ var pick = function (input, argOne, argTwo) {
         case "music":
             console.log("this is music section");
 
-            var argOne = process.argv[3];
-            var argTwo = process.argv[4];
+
 
             var getMusic = function () {
                 spotify.search({
@@ -41,15 +42,12 @@ var pick = function (input, argOne, argTwo) {
         case "band":
             console.log("this is band section");
 
-            var artist = process.argv[3];
-
             var getBand = function() {
-                var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+                var queryURL = "https://rest.bandsintown.com/artists/" + argOne + "/events?app_id=codingbootcamp";
 
                 axios.get(queryURL).then(function(response) {
-                    console.log(response);
+                    console.log(response.data[0].venue);
                 })
-
             };
             getBand();
             break;
