@@ -10,26 +10,25 @@ var spotify = new Spotify(keys.spotify);
 var axios = require("axios");
 
 //information
-var argOne = process.argv[3];
-var argTwo = process.argv[4];
+var argOne = process.argv.slice(3).join(" ");
+
+console.log(argOne);
 
 var pick = function (input, argOne, argTwo) {
     switch (input) {
         case "music":
             console.log("this is music section");
 
-
-
             var getMusic = function () {
                 spotify.search({
-                        type: argOne,
-                        query: argTwo,
+                        type: 'track',
+                        query: argOne,
                         limit: 1
                     }, function (err, data) {
                         if (err) {
                             return console.log('Error occurred: ' + err);
                         }
-                        console.log(data);
+                        console.log(data.tracks);
                     }
 
                 )
@@ -55,6 +54,7 @@ var pick = function (input, argOne, argTwo) {
 
         case "movie":
             console.log("this is movie section");
+
             var getMovie = function () {
                 var queryURL = "http://www.omdbapi.com/?i=tt3896198&apikey=" + keys.OMDBKey.APIKey + "&t=" + argOne;
                 axios.get(queryURL).then(function (response) {
@@ -66,4 +66,4 @@ var pick = function (input, argOne, argTwo) {
     }
 }
 
-pick(input, argOne, argTwo);
+pick(input, argOne);
